@@ -93,4 +93,4 @@ echo -e "${GREEN} Mounting ${partition} to /mnt"
 
 mount ${partition} /mnt
 
-
+echo -e "${GREEN} Starting installation..."
