@@ -53,6 +53,12 @@ do
 	let index+=1
 done
 
+if [ -z "$partition" ]
+then
+	echo -e "${BRED}You haven't chosen a valid partition. Exiting...${RESET}"
+	exit 1
+fi
+
 echo -e "${YELLOW}[WARNING] You have chosen the ${partition} partition to do the installation"
 echo -e "${CYAN} Now you have to choose what edition you are going to install"
 echo "(1) Daily Edition"
@@ -61,15 +67,30 @@ echo "(3) Developer Edition :"
 
 read EDITION_CHOICE
 
+edition_config_filename=""
 case $EDITION_CHOICE in
 
 	"1")
 		echo -e "${CYAN}You have chosen the Daily Edition which contains a daily-to-use generic system"
+		edition_config_filename="daily.conf"
 		;;
 	"2")
 		echo -e "${CYAN}You have chosen the Gaming Edition which contains the main tools for a gaming system such as Lutris, Wine or Steam."
+		
+		edition_config_filename="gaming.conf"
 		;;
 	"3")
 		echo -e "${CYAN}You have chosen the Developer Edition which contains some text editors and programming languages to do your work in a ready-to-use system"
 		
+		edition_config_filename="developer.conf"
+		;;
+	*)
+		echo -e "${BRED}You haven't entered a valid value. If you want a customized edition of Delta OS, please install it manually with our delta-install-cli tool. Exiting...${RESET}"
+		exit 1
 esac
+
+echo -e "${GREEN} Mounting ${partition} to /mnt"
+
+mount ${partition} /mnt
+
+
