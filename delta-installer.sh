@@ -89,8 +89,12 @@ case $EDITION_CHOICE in
 		exit 1
 esac
 
+mkfs.ext4 ${partition}
+
 echo -e "${GREEN} Mounting ${partition} to /mnt"
 
 mount ${partition} /mnt
 
 echo -e "${GREEN} Starting installation..."
+
+delta-install --config=${SOURCES_FILES_PATH}${edition_config_filename} /mnt
